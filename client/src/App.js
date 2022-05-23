@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
+import {InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
+import { ApolloClient } from '@apollo/client';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
@@ -8,14 +9,14 @@ import NoMatch from './pages/NoMatch';
 
 import { setContext } from '@apollo/client/link/context';
 
-const httpLink = createHttpLink({uri: '/graphql',});
+// const httpLink = createHttpLink({uri: '/graphql',});
 
 // -- Use the setContext() function to retrieve the token from localStorage 
 // and set the HTTP request headers of every request to include the token
 // -- Because we're not using the first parameter, but we still need to access 
 // the second one, we can use an underscore _ to serve as a placeholder for the first parameter.
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token_in_deepthotapp');
+  const token = localStorage.getItem('id_token');
   return {
     headers: {
       ...headers,
@@ -26,7 +27,8 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   // link: httpLink,
-  link: authLink.concat(httpLink),
+  // link: authLink.concat(httpLink),
+  link: authLink,
   cache: new InMemoryCache(),
 });
 
