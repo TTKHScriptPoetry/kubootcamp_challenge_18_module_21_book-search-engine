@@ -69,10 +69,8 @@ const resolvers = {
           { $push: { savedBooks: book._id } },
           { new: true }
         );
-        const updateUser = User.findOneAndUpdate(
-          { _id: context.user._id },
-        );
-        return updateUser;
+         
+        return book;
       }
     }
 //     ,
