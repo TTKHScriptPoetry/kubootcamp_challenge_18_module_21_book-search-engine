@@ -75,21 +75,21 @@ const resolvers = {
         return updateUser;
       }
     }
-    ,
-    removeBook: async (parent, { bookId }, context) => {
-      if (context.user) {
-        const updateUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull:  { savedBooks: {bookId: bookId } } },
-          { new: true, runValidators: true }
-        );
-
-        return updateUser;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
-    },
+//     ,
+//     removeBook: async (parent, { bookId }, context) => {
+//       if (context.user) {
+//         const updateUser = await User.findOneAndUpdate(
+//           { _id: context.user._id },
+//           { $pull:  { savedBooks: {bookId: bookId } } },
+//           { new: true, runValidators: true }
+//         );
+// 
+//         return updateUser;
+//       }
+// 
+//       throw new AuthenticationError('You need to be logged in!');
+//     },
 
   } // end of Mutation
 };    // end of resolver
-
+module.exports = resolvers;
